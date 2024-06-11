@@ -101,12 +101,17 @@ main();
   - now you can see `.env` file in the root. open the `.env` and add username & password for postgreSQL.
 
 - open prisma folder and create a schema/models
-`model Post {
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean  @default(false)
-}`
+  `
+
+model Post {
+id Int @id @default(autoincrement())
+title String
+content String
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+published Boolean @default(false)
+}
+
+`
+
 - now command for start prisma `npx prisma migrate dev`
