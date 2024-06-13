@@ -5,6 +5,7 @@ type Query {
     posts:[Post]
 }
 
+
   type Mutation {
     signup(
     name: String,
