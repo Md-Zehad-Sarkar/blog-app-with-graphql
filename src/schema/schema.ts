@@ -23,22 +23,10 @@ type Query {
 
     post(
     title: String!,
-    content: String!,
-    authorId: Int!,
+    content: String,
     ): PostPayload
 }
 
-
-type AuthPayload {
-    userError: String
-    token: String
-}
-
-type PostPayload {
-      title: String,
-      content: String,
-      authorId: Int,
-}
 
 type Post {
     id: ID!
@@ -65,4 +53,14 @@ type Profile {
     createdAt: String!
 }
 
+
+type AuthPayload {
+    userError: String
+    token: String
+}
+
+type PostPayload {
+     postStatus: String
+     post: Post
+}
 `;

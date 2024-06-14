@@ -10,3 +10,9 @@ export interface IJwtPayload {
   name: string;
   email: string;
 }
+
+export type TUserInfoContext = {
+  userId: number;
+  name: string;
+  email: string;
+} | null;
