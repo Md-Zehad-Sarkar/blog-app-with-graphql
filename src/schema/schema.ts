@@ -11,11 +11,17 @@ type Query {
     name: String,
     email: String,
     password: String,
-    ): SignUpUser
+    ): AuthPayload
+
+    signIn(
+    email: String,
+    password: String,
+    ): AuthPayload
   }
 
 
-type SignUpUser {
+type AuthPayload {
+    userError: String
     token: String
 }
 

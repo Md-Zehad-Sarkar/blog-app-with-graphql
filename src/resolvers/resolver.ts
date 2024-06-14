@@ -10,6 +10,7 @@ export const resolvers = {
       return await prisma.user.findMany();
     },
   },
+
   Mutation: {
     signup: async (parent: any, args: IUsers, context: any) => {
       args.password = await bcrypt.hash(args.password, 12);
@@ -21,7 +22,48 @@ export const resolvers = {
         { expiresIn: process.env.EXPIRES_IN }
       );
 
-      return { token };
+      return {
+        userError: null,
+        token,
+      };
+    },
+
+    signIn: async (parent: any, args: any, context: any) => {
+      const user = await prisma.user.findFirst({
+        where: { email: args.email },
+      });
+
+      if (!user) {
+        return {
+          userError: "User Not Find",
+          token: null,
+        };
+      }
+      const verifyPassword = await bcrypt.compare(
+        args.password,
+        user?.password
+      );
+      if (!verifyPassword) {
+        return {
+          userError: "Password Didn't MAtch",
+          token: null,
+        };
+      }
+
+      const token = await jwt.sign(
+        {
+          userId: user.id,
+          email: user.email,
+          userName: user.name,
+        },
+        process.env.JWT_SECRET || "JWT_SECRET",
+        { expiresIn: process.env.EXPIRES_IN }
+      );
+
+      return {
+        userError: "User login Success",
+        token,
+      };
     },
   },
 };
