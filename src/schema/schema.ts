@@ -21,10 +21,11 @@ type Query {
     password: String!,
     ): AuthPayload
 
-    post(
-    title: String!,
-    content: String,
+    addPost(
+    post:PostInput!
     ): PostPayload
+
+    updatePost(postId:ID!, post:PostInput):PostPayload
 }
 
 
@@ -62,5 +63,10 @@ type AuthPayload {
 type PostPayload {
      postStatus: String
      post: Post
+}
+
+input PostInput {
+title:String
+content:String
 }
 `;
