@@ -26,6 +26,8 @@ type Query {
     ): PostPayload
 
     updatePost(postId:ID!, post:PostInput):PostPayload
+
+    deletePost(postId:ID!):PostPayload
 }
 
 
