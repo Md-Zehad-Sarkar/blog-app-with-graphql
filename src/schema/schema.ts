@@ -37,7 +37,7 @@ type Post {
     id: ID!
     title: String!
     content: String!
-    author: User
+    author: User!
     createdAt: String!
     published: Boolean!
 }
