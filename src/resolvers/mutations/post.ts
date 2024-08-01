@@ -136,4 +136,39 @@ export const PostResolver = {
       post: deletedPost,
     };
   },
+
+  publishedPost: async (parent: any, args: any, { prisma, userInfo }: any) => {
+    // console.log("args", args, "userInfo", userInfo);
+
+    if (!userInfo) {
+      return {
+        // postStatus: "User Not Found",
+        // token: null,
+        userError: "Unauthorized User",
+        token: null,
+      };
+    }
+
+    const error = await checkUserAccess(prisma, userInfo.userId, args.postId);
+
+    if (error) {
+      return error;
+    }
+
+    const publishPost = await prisma.post.update({
+      where: {
+        id: Number(args.postId),
+      },
+      data: {
+        published: true,
+      },
+    });
+
+    // console.log("publishedPost", publishPost);
+
+    return {
+      userError: null,
+      post: publishPost,
+    };
+  },
 };
